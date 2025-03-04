@@ -26,7 +26,6 @@ install_github("ducciorocchini/imageRy") #posso usarla solo se ho installato dev
 #fai invio non aggiornare
 library(imageRy)
 
-im.list()
 
 
 
