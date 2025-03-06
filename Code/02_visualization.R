@@ -16,6 +16,8 @@ im.list()
 
 # importing the data
 # from now on we will use "=" instead of "<-"
+
+#importing band b2 (blue)
 b2 = im.import("sentinel.dolomites.b2.tif")
 
 cl = colorRampPalette(c("black", "grey", "light grey")) (100) #estende una palette ai colori, li decidiamo noi
@@ -25,29 +27,61 @@ plot(b2, col=cl)
 c2= colorRampPalette(c("red", "orange", "yellow")) (100)
 plot(b2, col=c2)
 
-
-# Exercise: import b3 and plot it with the previous palette
+#importing b3 band (green)
 b3 = im.import("sentinel.dolomites.b3.tif")
-plot(b3, col=cl)
 
 # Importing the red band
 b4 = im.import("sentinel.dolomites.b4.tif")
-plot(b4, col=cl)
 
-# Importing the NIR band
-b8 = im.import("sentinel.dolomites.b8.tif")
-plot(b8, col=cl)  
+# Importing the NIR band (near infra red)
+b8 = im.import("sentinel.dolomites.b8.tif") 
 
-# Multiframe
-par(mfrow=c(2,2))
+# Multiframe (graph with more images inside) with different color palette
+#if i want 1 row and 4 coloumn
+par(mfrow=c(1,4))
+plot(b2)
+plot(b3)
+plot(b4)
+plot(b8)
+
+#exercise: plot the bands using 1m.multiframe() one on top of the other
+par(mfrow=c(4,1))
+plot(b2)
+plot(b3)
+plot(b4)
+plot(b8)
+
+#creating a color palette and plotting the four images
+cl=colorRampPalette(c("black","light grey"))(100)
 plot(b2, col=cl)
 plot(b3, col=cl)
 plot(b4, col=cl)
 plot(b8, col=cl)
 
-# stack
-sentstack = c(b2, b3, b4, b8)
-plot(sentstack, col=cl)
+# stack (a data package)
+#now i have the 4 bands with their name on the image
+sent = c(b2, b3, b4, b8)
+plot(sent, col=cl)
+
+# to change the names
+names(sent)=c("b2_blue", "b3_green", "b4_red", "b8_NIR")
+sent
+plot(sent, col=cl) #now the images are black and white
+plot(sent) #now the images are colored
+
+# if i want to plot only the b8 band, i use $
+plot(sent$b8_NIR)
+# or i use [4] cause i know it is the fourth image
+plot(sent[4])
+
+#importing several bands altogether. I put the part of the name of the file that is common between all the images i want to import
+sentdol=im.import("sentinel.dolomites")
+#importing several sets altogether
+pairs(sentdol)
+
+
+
+
 
 # Plotting one layer
 dev.off()
