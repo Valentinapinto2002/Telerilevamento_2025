@@ -2,6 +2,10 @@
 install.packages("devtools")
 library(devtools)
 
+#installing viridis package
+install.packages("viridis")
+library(viridis)
+
 install_github("ducciorocchini/imageRy") #posso usarla solo se ho installato devtools #installo il pacchetto imageRy da ducciorocchini
 #fai invio non aggiornare
 
@@ -79,7 +83,11 @@ sentdol=im.import("sentinel.dolomites")
 #importing several sets altogether
 pairs(sentdol)
 
-
+#da qui serve aver richiamato il pacchetto viridis
+#viridis colours https://cran.r-project.org/web/packages/viridis/vignettes/intro-to-viridis.html
+plot(sentdol, col=viridis(100))
+plot(sentdol, col=mako(100)) #mako è un'altra palette di colori
+plot(sentdol, col=magma(100)) #magma è un'altra palette di colori
 
 
 
