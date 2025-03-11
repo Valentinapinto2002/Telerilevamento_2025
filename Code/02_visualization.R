@@ -89,39 +89,31 @@ plot(sentdol, col=viridis(100))
 plot(sentdol, col=mako(100)) #mako è un'altra palette di colori
 plot(sentdol, col=magma(100)) #magma è un'altra palette di colori
 
+#lezione 11 marzo
+sentdol=im.import("sentinel.dolomites")
+sentdol #da le info sul file
 
+nlyr(sentdol) #numero di layers
+ncell(sentdol) 
 
-# Plotting one layer
-dev.off()
-plot(sentstack[[1]], col=cl)
-plot(sentstack[[4]], col=cl)
+#layers: 
+#1 = blue (b2)
+#2 = green (b3)
+#3 = red (b4)
+#4 = NIR (b8)
+# numero totale di pixel
 
-# Multiframe with different color palette
-par(mfrow=c(2,2))
+#natural colors
+im.plotRGB(sentdol, r=3, g=2, b=1) #le tre bande del visibile
 
-clb = colorRampPalette(c("dark blue", "blue", "light blue")) (100)
-plot(b2, col=clb)
+#uso anche la banda dell'infrarosso vicino, visto che ne posso usare solo 3 in tutto una di quelle dei prima la devo levare. levo quella blu
+#false colors
+im.plotRGB(sentdol, r=4, g=3, b=2) #siccome le piante riflettono in infrarosso vicino, e ho montato questa componente sul rosso, apparirà rosso dove ci sono le piante
 
-# Exercise: apply the same concept to the green band (b3)
-clg = colorRampPalette(c("dark green", "green", "light green")) (100)
-plot(b3, col=clg)
+#exercise: plot the image using the NIR ontop of the green component of the RGB scheme
+im.plotRGB(sentdol, r=3, g=4, b=2)
+# stesso risultato anche con
+im.plotRGB(sentdol, r=2, g=4, b=3)
 
-# Plotting red band (b4)
-clr = colorRampPalette(c("dark red", "red", "pink")) (100)
-plot(b4, col=clr)
-
-# Plotting the NIR band (b8)
-cln = colorRampPalette(c("brown", "orange", "yellow")) (100)
-plot(b8, col=cln)
-
-# RGB plotting
-# sentstack[[1]] blue
-# sentstack[[2]] green
-# sentstack[[3]] red
-# sentstack[[4]] NIR
-  
-dev.off()
-im.plotRGB(sentstack, r=3, g=2, b=1) # natural color image
-im.plotRGB(sentstack, r=4, g=3, b=2) # false color image
-im.plotRGB(sentstack, r=3, g=4, b=2) # false color image
-im.plotRGB(sentstack, r=3, g=2, b=4) # false color image
+#ora mettiamo l'infrarosso vicino sul blu
+im.plotRGB(sentdol, r=3, g=2, b=4)
